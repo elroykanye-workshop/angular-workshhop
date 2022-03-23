@@ -3,7 +3,7 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'product-image',
   template: `
-    <img class="product-image" [src]="imageUrl" alt="Photo of  {{imageUrl}}">
+    <img width="128" class="product-image" [src]="imageUrl" alt="Photo of  {{imageUrl}}">
   `,
   styleUrls: ['./product-image.component.css']
 })
