@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AppValidators} from "../app.validators";
 
 @Component({
   selector: 'app-sku-form-rx',
@@ -8,17 +9,30 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class SkuFormRxComponent implements OnInit {
   myForm: FormGroup;
+  sku: AbstractControl;
 
   constructor(fb: FormBuilder) {
     this.myForm = fb.group({
-      'sku': ['ABC123'],
+      'sku': ['', Validators.compose([
+        Validators.required, AppValidators.skuValidator
+      ])]
     });
+
+    this.sku = this.myForm.controls['sku'];
+    this.sku.valueChanges.subscribe(
+      (value: string) => console.log(`sku changed to ${value}`)
+    );
+
+    this.myForm.valueChanges.subscribe(
+      (form: any) => console.log(`form changed to ${form}`)
+    );
   }
 
   ngOnInit(): void {
   }
 
   onSubmit(value: any) {
-    
+    console.log("You submitted this form:");
+    console.log(value);
   }
 }
